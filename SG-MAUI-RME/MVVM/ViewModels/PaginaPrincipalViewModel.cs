@@ -13,6 +13,7 @@ namespace SG_MAUI_RME.MVVM.ViewModels
         
         public ICommand GestionUsuariosCommand => new Command(() =>
         {
+            //recomendacion pasar el usuario logueado entre las ventanas
             App.Current.MainPage.Navigation.PushAsync(new GestionUsuariosView());
         });
 
