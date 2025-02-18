@@ -11,22 +11,43 @@ namespace SG_MAUI_RME.MVVM.ViewModels
         public ICommand LoginCommand { get; set; }
         public ICommand LimpiarLoginCommand { get; set; }
 
+        /*
+         * Commands:
+         * - LoginCommand: Valida el usuario y contraseña. Si no hay usuarios registrados, guarda el usuario y loguea
+         * - LimpiarLoginCommand: Limpia los campos
+         */
         public UsuarioViewModel()
         {
             LoginCommand = new Command(async () =>
             {
-                if (App.UsuarioRepositorio.GetItems().Count == 0)
+                if (string.IsNullOrEmpty(UsuarioLog.Name) || string.IsNullOrEmpty(UsuarioLog.Passwd))
                 {
-                    App.UsuarioRepositorio.SaveItemCascada(UsuarioLog);
-                    await Application.Current.MainPage.DisplayAlert("Información", "Usuario guardado", "OK");
-
-                    App.Current.MainPage = new NavigationPage(new MainPage());
+                    await Application.Current.MainPage.DisplayAlert("Error", "Ponga los campos mamahuevo", "OK");
+                    return;
                 }
                 else
                 {
-                    App.UsuarioRepositorio.Login(UsuarioLog.Name, UsuarioLog.Passwd);
+                    if (App.UsuarioRepositorio.GetItems().Count == 0)
+                    {
+                        App.UsuarioRepositorio.SaveItemCascada(UsuarioLog);
+                        await Application.Current.MainPage.DisplayAlert("Información", "Usuario guardado. Bienvenido " + UsuarioLog.Name , "OK");
 
-                    App.Current.MainPage = new NavigationPage(new MainPage());
+                        App.Current.MainPage = new NavigationPage(new MainPage());
+                    }
+                    else
+                    {
+                        var usuario = App.UsuarioRepositorio.Login(UsuarioLog.Name, UsuarioLog.Passwd);
+
+                        if (usuario != null)
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Éxito", "Bienvenido " + UsuarioLog.Name, "OK");
+                            App.Current.MainPage = new NavigationPage(new MainPage());
+                        }
+                        else
+                        {
+                            await Application.Current.MainPage.DisplayAlert("Éxito", "Usuario no encontrado", "OK");
+                        }
+                    }
                 }
             });
             LimpiarLoginCommand = new Command(() =>
