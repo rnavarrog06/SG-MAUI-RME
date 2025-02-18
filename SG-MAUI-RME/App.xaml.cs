@@ -1,4 +1,6 @@
-﻿namespace SG_MAUI_RME
+﻿using SG_MAUI_RME.MVVM.Views;
+
+namespace SG_MAUI_RME
 {
     public partial class App : Application
     {
@@ -6,7 +8,7 @@
         {
             InitializeComponent();
 
-            MainPage = new AppShell();
+            MainPage = new NavigationPage(new PaginaPrincipal());
         }
     }
 }
