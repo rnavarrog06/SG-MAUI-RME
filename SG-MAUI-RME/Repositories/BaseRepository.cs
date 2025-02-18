@@ -31,22 +31,20 @@ namespace SG_MAUI_RME.Repositories
             Constantes.Flags);
             connection.CreateTable<T>();
         }
-        public Usuario Login(string username, string password)
+        public Usuario Login(string name, string password)
         {
             try
             {
-                if (GetItems().Count == 0)
+                var usuario = connection.Table<Usuario>().FirstOrDefault(x => x.Name == name && x.Passwd == password);
+                if (usuario == null)
                 {
-                    //SaveItem(new Usuario { Name = "", Passwd = "" });
-                    return connection.Table<Usuario>()
-                    .FirstOrDefault(x => x.Name == username && x.Passwd == password);
+                    StatusMessage = "Usuario o contraseña incorrectos.";
                 }
                 else
                 {
-                    return connection.Table<Usuario>()
-                    .FirstOrDefault(x => x.Name == username && x.Passwd == password);
-
+                    StatusMessage = "Inicio de sesión exitoso.";
                 }
+                return usuario;
             }
             catch (Exception ex)
             {

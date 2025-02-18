@@ -21,7 +21,6 @@ namespace SG_MAUI_RME
             {
                 return Path.Combine(FileSystem.AppDataDirectory, DATABASE_NAME);
             }
-
         }
 
     }

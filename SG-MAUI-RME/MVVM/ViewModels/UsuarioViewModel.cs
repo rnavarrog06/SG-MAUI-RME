@@ -1,10 +1,6 @@
-﻿using PropertyChanged;
+﻿using System.ComponentModel;
+using PropertyChanged;
 using SG_MAUI_RME.MVVM.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SG_MAUI_RME.MVVM.ViewModels
@@ -12,25 +8,28 @@ namespace SG_MAUI_RME.MVVM.ViewModels
     [AddINotifyPropertyChangedInterface]
     public class UsuarioViewModel
     {
-        public List<Usuario> Usuarios { get; set; }
-
+        public Usuario UsuarioLog { get; set; } = new Usuario();
         public ICommand LoginCommand { get; set; }
         public ICommand LimpiarLoginCommand { get; set; }
-
-        public Usuario Usuario { get; set; }
 
         public UsuarioViewModel()
         {
             LoginCommand = new Command(async () =>
             {
-                App.UsuarioRepositorio.Login(Usuario.Name, Usuario.Passwd);
-                Console.WriteLine(App.UsuarioRepositorio.StatusMessage);
+                //if (App.UsuarioRepositorio.GetItems().Count == 0)
+                //{
+                //    App.UsuarioRepositorio.SaveItemCascada(UsuarioLog);
+                //    await Application.Current.MainPage.DisplayAlert("Información", App.UsuarioRepositorio.StatusMessage, "OK");
+                //    await Application.Current.MainPage.DisplayAlert("Información", "Usuario guardado", "OK");
+                //}
+                //else
+                //{
+                //    await Application.Current.MainPage.DisplayAlert("Error", "Usuario ya guardado", "OK");
+                //}
             });
-
             LimpiarLoginCommand = new Command(() =>
             {
-                //Limpiar los dos campos
-                Usuario.Name = string.Empty;
+                UsuarioLog = new Usuario();
             });
         }
     }

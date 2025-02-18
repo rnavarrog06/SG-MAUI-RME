@@ -8,15 +8,15 @@
 
             <VerticalStackLayout Spacing="10" VerticalOptions="Center" Grid.Row="1">
                     <Entry
-                           Placeholder="Nombre de Usuario" 
-                           Text=""
+                           Placeholder="Nombre de Usuario"
+                           Text="{Binding UsuarioLog.Name}"
                            BackgroundColor="Gray"
                            Margin="10"
                            WidthRequest="250"/>
 
-                    <Entry Placeholder="Contraseña" 
-                           IsPassword="True" 
-                           Text=""
+                    <Entry Placeholder="Contraseña"
+                           Text="{Binding UsuarioLog.Passwd}"
+                           IsPassword="True"
                            BackgroundColor="Gray"
                            Margin="10"
                            WidthRequest="250"/>
