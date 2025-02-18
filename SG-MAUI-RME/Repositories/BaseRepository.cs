@@ -31,19 +31,30 @@ namespace SG_MAUI_RME.Repositories
             Constantes.Flags);
             connection.CreateTable<T>();
         }
-        public Usuario Login(string user, string passwd)
+        public Usuario Login(string username, string password)
         {
             try
             {
-                return connection.Table<Usuario>().FirstOrDefault(x => x.Usuario == user && x.Password == passwd);
+                if (GetItems().Count == 0)
+                {
+                    //SaveItem(new Usuario { Name = "", Passwd = "" });
+                    return connection.Table<Usuario>()
+                    .FirstOrDefault(x => x.Name == username && x.Passwd == password);
+                }
+                else
+                {
+                    return connection.Table<Usuario>()
+                    .FirstOrDefault(x => x.Name == username && x.Passwd == password);
+
+                }
             }
             catch (Exception ex)
             {
-                StatusMessage =
-                $"Error: {ex.Message}";
+                StatusMessage = $"Error: {ex.Message}";
+                return null;
             }
-            return null;
         }
+
         public void DeleteItem(T item)
         {
             try

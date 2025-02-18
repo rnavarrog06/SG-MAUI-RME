@@ -17,7 +17,8 @@ namespace SG_MAUI_RME.Abstractions
         List<T> GetItemsCascada();
         List<T> GetItems(Expression<Func<T, bool>> predicate);
         void DeleteItem(T item);
-        T Login(string user, string passwd);
+        T Login(string username, string password);
+
 
     }
 }

@@ -4,10 +4,11 @@
              x:Class="SG_MAUI_RME.MVVM.Views.LoginView"
              Title="LoginView">
     <ContentPage.Content>
-        <Grid Padding="20" RowDefinitions="0.3*,0.3*,0.3*">
+        <Grid Padding="20" RowDefinitions="0.25*,0.5*,0.25*">
 
             <VerticalStackLayout Spacing="10" VerticalOptions="Center" Grid.Row="1">
-                    <Entry Placeholder="Nombre de Usuario" 
+                    <Entry
+                           Placeholder="Nombre de Usuario" 
                            Text=""
                            BackgroundColor="Gray"
                            Margin="10"
@@ -21,13 +22,22 @@
                            WidthRequest="250"/>
 
                     <Button Text="Iniciar Sesión"
+                            Command="{Binding LoginCommand}"
                             BackgroundColor="Black"
                             TextColor="Pink"
                             CornerRadius="5"
                             Padding="10"
                             FontAttributes="Bold"
                             WidthRequest="250"/>
-                </VerticalStackLayout>
+                    <Button Text="Limpiar"
+                            Command="{Binding LimpiarLoginCommand}"
+                            BackgroundColor="Black"
+                            TextColor="Pink"
+                            CornerRadius="5"
+                            Padding="10"
+                            FontAttributes="Bold"
+                            WidthRequest="250"/>
+            </VerticalStackLayout>
             
         </Grid>
     </ContentPage.Content>
