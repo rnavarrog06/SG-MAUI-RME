@@ -8,7 +8,9 @@ namespace SG_MAUI_RME
         {
             InitializeComponent();
 
+
             MainPage = new NavigationPage(new LoginView());
+
         }
     }
 }

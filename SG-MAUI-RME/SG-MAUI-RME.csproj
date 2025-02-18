@@ -57,6 +57,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\gestion_usuarios.png" />
+	  <None Remove="Resources\Images\salir.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
@@ -70,7 +75,17 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="MVVM\Views\GestionUsuariosView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="MVVM\Views\PaginaPrincipalView.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Folder Include="MVVM\Models\" />
+<<<<<<< HEAD
 	  <Folder Include="MVVM\ViewModels\" />
 	</ItemGroup>
 
@@ -78,6 +93,14 @@
 	  <MauiXaml Update="MVVM\Views\LoginView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+=======
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="MVVM\Views\PaginaPrincipalView.xaml.cs">
+	    <DependentUpon>PaginaPrincipalView.xaml</DependentUpon>
+	  </Compile>
+>>>>>>> feature/2.PaginaPrincipal
 	</ItemGroup>
 
 </Project>

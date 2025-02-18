@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SG_MAUI_RME.MVVM.Views.PaginaPrincipal"
+             NavigationPage.HasNavigationBar="False"
+             Title="PaginaPrincipal">
+    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="150">
+
+        
+        <ImageButton Source="gestion_usuarios.png"
+                     WidthRequest="100"
+                     HeightRequest="100"
+                     Command="{Binding GestionUsuariosCommand}" />
+
+        
+        <ImageButton Source="salir.png"
+                     WidthRequest="100"
+                     HeightRequest="100"
+                     Command="{Binding SalirCommand}" />
+
+    </HorizontalStackLayout>
+</ContentPage>
