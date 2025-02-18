@@ -11,9 +11,5 @@ namespace SG_MAUI_RME.Abstractions
     {
         [SQLite.PrimaryKey, SQLite.AutoIncrement]
         public int Id { get; set; }
-
-
-
-
     }
 }
