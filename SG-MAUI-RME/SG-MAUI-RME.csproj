@@ -85,7 +85,6 @@
 
 	<ItemGroup>
 	  <Folder Include="MVVM\Models\" />
-<<<<<<< HEAD
 	  <Folder Include="MVVM\ViewModels\" />
 	  <Folder Include="MVVM\Views\" />
 	</ItemGroup>
@@ -94,14 +93,14 @@
 	  <MauiXaml Update="MVVM\Views\LoginView.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-=======
+
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Compile Update="MVVM\Views\PaginaPrincipalView.xaml.cs">
 	    <DependentUpon>PaginaPrincipalView.xaml</DependentUpon>
 	  </Compile>
->>>>>>> feature/2.PaginaPrincipal
+
 	</ItemGroup>
 
 </Project>
