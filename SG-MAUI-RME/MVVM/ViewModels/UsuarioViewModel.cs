@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using PropertyChanged;
+﻿using PropertyChanged;
 using SG_MAUI_RME.MVVM.Models;
 using System.Windows.Input;
 
@@ -16,16 +15,19 @@ namespace SG_MAUI_RME.MVVM.ViewModels
         {
             LoginCommand = new Command(async () =>
             {
-                //if (App.UsuarioRepositorio.GetItems().Count == 0)
-                //{
-                //    App.UsuarioRepositorio.SaveItemCascada(UsuarioLog);
-                //    await Application.Current.MainPage.DisplayAlert("Información", App.UsuarioRepositorio.StatusMessage, "OK");
-                //    await Application.Current.MainPage.DisplayAlert("Información", "Usuario guardado", "OK");
-                //}
-                //else
-                //{
-                //    await Application.Current.MainPage.DisplayAlert("Error", "Usuario ya guardado", "OK");
-                //}
+                if (App.UsuarioRepositorio.GetItems().Count == 0)
+                {
+                    App.UsuarioRepositorio.SaveItemCascada(UsuarioLog);
+                    await Application.Current.MainPage.DisplayAlert("Información", "Usuario guardado", "OK");
+
+                    App.Current.MainPage = new NavigationPage(new MainPage());
+                }
+                else
+                {
+                    App.UsuarioRepositorio.Login(UsuarioLog.Name, UsuarioLog.Passwd);
+
+                    App.Current.MainPage = new NavigationPage(new MainPage());
+                }
             });
             LimpiarLoginCommand = new Command(() =>
             {

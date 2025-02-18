@@ -35,22 +35,29 @@ namespace SG_MAUI_RME.Repositories
         {
             try
             {
-                var usuario = connection.Table<Usuario>().FirstOrDefault(x => x.Name == name && x.Passwd == password);
-                if (usuario == null)
+                // Primero, buscar el usuario en la base de datos por nombre y contraseña
+                var usuario = connection.Table<Usuario>().FirstOrDefault(x => x.Name == name);
+
+                // Si el usuario existe y la contraseña es correcta
+                if (usuario != null && usuario.Passwd == password)
                 {
-                    StatusMessage = "Usuario o contraseña incorrectos.";
+                    StatusMessage = "Inicio de sesión exitoso.";
+                    return usuario;
+                }
+                else if (usuario != null && usuario.Passwd != password)
+                {
+                    StatusMessage = "Contraseña incorrecta.";
                 }
                 else
                 {
-                    StatusMessage = "Inicio de sesión exitoso.";
+                    StatusMessage = "Usuario no encontrado.";
                 }
-                return usuario;
             }
             catch (Exception ex)
             {
                 StatusMessage = $"Error: {ex.Message}";
-                return null;
             }
+            return null;
         }
 
         public void DeleteItem(T item)
