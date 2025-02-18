@@ -12,10 +12,9 @@ namespace SG_MAUI_RME
         {
             InitializeComponent();
 
-<<<<<<< HEAD
-=======
+
             UsuarioRepositorio = objUsuarioRepo;
->>>>>>> 45aa47d5884500ec5f981c9c259b0feabaf03f63
+
 
             MainPage = new NavigationPage(new LoginView());
 

@@ -35,7 +35,7 @@ namespace SG_MAUI_RME.Repositories
         {
             try
             {
-                return connection.Table<Usuario>().FirstOrDefault(x => x.Usuario == user && x.Password == passwd);
+                return connection.Table<Usuario>().FirstOrDefault(x => x.Name == user && x.Passwd == passwd);
             }
             catch (Exception ex)
             {
