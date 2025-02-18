@@ -1,4 +1,4 @@
-﻿using SG_MAUI_RME.Abstractions;
+using SG_MAUI_RME.Abstractions;
 using SG_MAUI_RME.MVVM.Models;
 using SQLite;
 using SQLiteNetExtensions.Extensions;
@@ -31,19 +31,46 @@ namespace SG_MAUI_RME.Repositories
             Constantes.Flags);
             connection.CreateTable<T>();
         }
-        public Usuario Login(string user, string passwd)
+        public Usuario Login(string name, string password)
         {
             try
             {
-                return connection.Table<Usuario>().FirstOrDefault(x => x.Name == user && x.Passwd == passwd);
+                var usuarios = GetItems()?.Cast<Usuario>().ToList();
+
+
+                if (usuarios != null && usuarios.Count > 0)
+                {
+                    foreach (var usuario in usuarios)
+                    {
+                        if (usuario.Name == name && usuario.Passwd == password)
+                        {
+                            StatusMessage = "Inicio de sesión exitoso.";
+                            return usuario;
+                        }
+                    }
+
+                    if (usuarios.Any(u => u.Name == name))
+                    {
+                        StatusMessage = "Contraseña incorrecta.";
+                    }
+                    else
+                    {
+                        StatusMessage = "Usuario no encontrado.";
+                    }
+                }
+                else
+                {
+                    StatusMessage = "No se encontraron usuarios en la base de datos.";
+                }
             }
             catch (Exception ex)
             {
-                StatusMessage =
-                $"Error: {ex.Message}";
+                StatusMessage = $"Error: {ex.Message}";
             }
+
             return null;
         }
+
         public void DeleteItem(T item)
         {
             try
