@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
@@ -87,6 +87,7 @@
 	  <Folder Include="MVVM\Models\" />
 <<<<<<< HEAD
 	  <Folder Include="MVVM\ViewModels\" />
+	  <Folder Include="MVVM\Views\" />
 	</ItemGroup>
 
 	<ItemGroup>
