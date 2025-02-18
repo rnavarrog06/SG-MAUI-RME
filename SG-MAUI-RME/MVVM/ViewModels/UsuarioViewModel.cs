@@ -1,5 +1,6 @@
 ﻿using PropertyChanged;
 using SG_MAUI_RME.MVVM.Models;
+using SG_MAUI_RME.MVVM.Views;
 using System.Windows.Input;
 
 namespace SG_MAUI_RME.MVVM.ViewModels
@@ -30,9 +31,9 @@ namespace SG_MAUI_RME.MVVM.ViewModels
                     if (App.UsuarioRepositorio.GetItems().Count == 0)
                     {
                         App.UsuarioRepositorio.SaveItemCascada(UsuarioLog);
-                        await Application.Current.MainPage.DisplayAlert("Información", "Usuario guardado. Bienvenido " + UsuarioLog.Name , "OK");
+                        await Application.Current.MainPage.DisplayAlert("Información", "Usuario guardado. Bienvenido " + UsuarioLog.Name, "OK");
 
-                        App.Current.MainPage = new NavigationPage(new MainPage());
+                        App.Current.MainPage = new NavigationPage(new PaginaPrincipal());
                     }
                     else
                     {
@@ -41,7 +42,7 @@ namespace SG_MAUI_RME.MVVM.ViewModels
                         if (usuario != null)
                         {
                             await Application.Current.MainPage.DisplayAlert("Éxito", "Bienvenido " + UsuarioLog.Name, "OK");
-                            App.Current.MainPage = new NavigationPage(new MainPage());
+                            App.Current.MainPage = new NavigationPage(new PaginaPrincipal());
                         }
                         else
                         {
@@ -50,6 +51,7 @@ namespace SG_MAUI_RME.MVVM.ViewModels
                     }
                 }
             });
+
             LimpiarLoginCommand = new Command(() =>
             {
                 UsuarioLog = new Usuario();
