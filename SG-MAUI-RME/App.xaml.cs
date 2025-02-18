@@ -1,5 +1,7 @@
-﻿using SG_MAUI_RME.MVVM.Models;
+using SG_MAUI_RME.MVVM.Models;
 using SG_MAUI_RME.Repositories;
+
+using SG_MAUI_RME.MVVM.Views;
 
 namespace SG_MAUI_RME
 {
@@ -12,7 +14,7 @@ namespace SG_MAUI_RME
 
             UsuarioRepositorio = objUsuarioRepo;
 
-            MainPage = new AppShell();
+            MainPage = new NavigationPage(new LoginView());
         }
     }
 }

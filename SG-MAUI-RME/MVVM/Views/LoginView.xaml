@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SG_MAUI_RME.MVVM.Views.LoginView"
+             Title="LoginView">
+    <ContentPage.Content>
+        <Grid Padding="20" RowDefinitions="0.3*,0.3*,0.3*">
+
+            <VerticalStackLayout Spacing="10" VerticalOptions="Center" Grid.Row="1">
+                    <Entry Placeholder="Nombre de Usuario" 
+                           Text=""
+                           BackgroundColor="Gray"
+                           Margin="10"
+                           WidthRequest="250"/>
+
+                    <Entry Placeholder="Contraseña" 
+                           IsPassword="True" 
+                           Text=""
+                           BackgroundColor="Gray"
+                           Margin="10"
+                           WidthRequest="250"/>
+
+                    <Button Text="Iniciar Sesión"
+                            BackgroundColor="Black"
+                            TextColor="Pink"
+                            CornerRadius="5"
+                            Padding="10"
+                            FontAttributes="Bold"
+                            WidthRequest="250"/>
+                </VerticalStackLayout>
+            
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
