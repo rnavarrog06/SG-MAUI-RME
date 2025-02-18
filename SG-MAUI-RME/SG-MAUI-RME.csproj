@@ -85,6 +85,7 @@
 
 	<ItemGroup>
 	  <Folder Include="MVVM\Models\" />
+	  <Folder Include="MVVM\Models\" />
 	</ItemGroup>
 
 	<ItemGroup>
