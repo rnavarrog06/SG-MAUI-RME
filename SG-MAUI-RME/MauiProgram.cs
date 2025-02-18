@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using SG_MAUI_RME.MVVM.Models;
 
 namespace SG_MAUI_RME
 {
@@ -14,6 +15,8 @@ namespace SG_MAUI_RME
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
+
+            builder.Services.AddSingleton<Repositories.BaseRepository<Usuario>>();
 
 #if DEBUG
     		builder.Logging.AddDebug();

@@ -9,7 +9,7 @@ namespace SG_MAUI_RME.Abstractions
 {
     public class TableData
     {
-        [PrimaryKey, AutoIncrement]
+        [SQLite.PrimaryKey, SQLite.AutoIncrement]
         public int Id { get; set; }
 
 

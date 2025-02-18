@@ -8,7 +8,7 @@ namespace SG_MAUI_RME
 {
     public class Constantes
     {
-        private const string DATABASE_NAME = "SQLiteEjemplo.db3";
+        private const string DATABASE_NAME = "SQLUsers.db3";
 
         public const SQLite.SQLiteOpenFlags Flags =
             SQLite.SQLiteOpenFlags.ReadWrite |
