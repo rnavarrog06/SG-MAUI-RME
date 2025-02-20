@@ -8,15 +8,19 @@ namespace SG_MAUI_RME
     public partial class App : Application
     {
         public static BaseRepository<Usuario> UsuarioRepositorio { get; private set; }
-        public App(BaseRepository<Usuario> objUsuarioRepo)
+
+        public static BaseRepository<Emails> EmailRepositorio { get; private set; }
+
+        public App(BaseRepository<Usuario> objUsuarioRepo, BaseRepository<Emails> objEmailRepo)
         {
             InitializeComponent();
 
 
             UsuarioRepositorio = objUsuarioRepo;
+            EmailRepositorio = objEmailRepo;
 
 
-            MainPage = new NavigationPage(new GestionUsuariosView());
+            MainPage = new NavigationPage(new LoginView());
 
         }
     }

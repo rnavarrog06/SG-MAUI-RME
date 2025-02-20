@@ -17,9 +17,10 @@ namespace SG_MAUI_RME
                 });
 
             builder.Services.AddSingleton<Repositories.BaseRepository<Usuario>>();
+            builder.Services.AddSingleton<Repositories.BaseRepository<Emails>>();
 
 #if DEBUG
-    		builder.Logging.AddDebug();
+            builder.Logging.AddDebug();
 #endif
 
             return builder.Build();

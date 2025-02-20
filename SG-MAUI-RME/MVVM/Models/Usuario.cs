@@ -1,5 +1,6 @@
 ﻿using SG_MAUI_RME.Abstractions;
 using SQLite;
+using SQLiteNetExtensions.Attributes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,8 @@ namespace SG_MAUI_RME.MVVM.Models
 
         [MaxLength(20), NotNull]
         public string Passwd { get; set; }
+
+        [OneToMany(CascadeOperations = CascadeOperation.All)]
+        public List<Emails> Emails { get; set; }
     }
 }
