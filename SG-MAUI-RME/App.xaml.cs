@@ -16,7 +16,7 @@ namespace SG_MAUI_RME
             UsuarioRepositorio = objUsuarioRepo;
 
 
-            MainPage = new NavigationPage(new LoginView());
+            MainPage = new NavigationPage(new GestionUsuariosView());
 
         }
     }

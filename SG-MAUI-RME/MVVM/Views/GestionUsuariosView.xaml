@@ -1,12 +1,82 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="SG_MAUI_RME.MVVM.Views.GestionUsuariosView"
-             Title="GestionUsuariosView">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="GestionUsuariosView"
+             NavigationPage.HasNavigationBar="False">
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Frame Padding="10" Margin="10">
+                <VerticalStackLayout>
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Image x:Name="Imagen Usuario" Source="dotnet_bot.png" HeightRequest="100" WidthRequest="100" />
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Button Text="Cambiar Imagen" WidthRequest="150"/>
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <BoxView HeightRequest="1" Color="Gray" Margin="0,10" />
+
+                    <Label Text="Datos login:" FontAttributes="Bold" Margin="0,5" HorizontalOptions="Center"/>
+                    <Entry x:Name="LoginEntry" Placeholder="Login" />
+                    <Entry x:Name="PasswordEntry" Placeholder="Contraseña" IsPassword="True" />
+
+                    <BoxView HeightRequest="1" Color="Gray" Margin="0,10" />
+
+                    <Label Text="Emails del Usuario:" FontAttributes="Bold" Margin="0,5" HorizontalOptions="Center"/>
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                        <Entry x:Name="emailEntry" Placeholder="Añadir nuevo correo" WidthRequest="200"/>
+                        <Button Text="+" WidthRequest="50" HeightRequest="40" />
+                    </HorizontalStackLayout>
+
+                    <CollectionView x:Name="Emails" HeightRequest="100">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <HorizontalStackLayout Spacing="10" HorizontalOptions="Fill" Margin="0">
+                                    <Label Text="Correo electrónico" VerticalOptions="Center" />
+                                    <Button Text="Editar email" WidthRequest="100" />
+                                    <Button Text="Eliminar" WidthRequest="100" />
+                                </HorizontalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <BoxView HeightRequest="1" Color="Gray" Margin="0,10" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                        <Button Text="Guardar" WidthRequest="100" />
+                        <Button Text="Borrar" WidthRequest="100" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="10" Margin="10">
+                <Grid>
+                    <VerticalStackLayout x:Name="EmptyStateView" IsVisible="True" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image Source="dotnet_bot.png" HeightRequest="150" />
+                        <Label Text="No hay usuarios." HorizontalOptions="Center" />
+                    </VerticalStackLayout>
+
+                    <CollectionView x:Name="Usuarios" SelectionMode="Single" IsVisible="False">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="5" Margin="5" CornerRadius="10" BorderColor="Gray">
+                                    <HorizontalStackLayout>
+                                        <Image Source="dotnet_bot.png" WidthRequest="50" HeightRequest="50"/>
+                                        <VerticalStackLayout>
+                                            <Label Text="Usuario" FontAttributes="Bold" />
+                                            <Label Text="Contraseña" FontSize="Small" />
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
+
+
+
