@@ -22,7 +22,13 @@ namespace SG_MAUI_RME.MVVM.Models
         [MaxLength(20), NotNull]
         public string Passwd { get; set; }
 
+        [MaxLength(40)]
+        public string Image { get; set; }
+
         [OneToMany(CascadeOperations = CascadeOperation.All)]
         public ObservableCollection<Emails> Emails { get; set; }
+
+        
+
     }
 }
