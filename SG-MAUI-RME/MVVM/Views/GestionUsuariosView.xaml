@@ -19,23 +19,31 @@
 
                     <Label Text="Datos login:" FontAttributes="Bold" Margin="0,5" HorizontalOptions="Center"/>
                     <Entry x:Name="LoginEntry" Placeholder="Login" Text="{Binding UsuarioSeleccionado.Name}" />
-                    <Entry x:Name="PasswordEntry" Placeholder="Contraseña" IsPassword="True" Text="{Binding UsuarioSeleccionado.Passwd}"/>
+                    <Entry x:Name="PasswordEntry"  Placeholder="Contraseña" IsPassword="True" Text="{Binding UsuarioSeleccionado.Passwd}"/>
 
                     <BoxView HeightRequest="1" Color="Gray" Margin="0,10" />
 
                     <Label Text="Emails del Usuario:" FontAttributes="Bold" Margin="0,5" HorizontalOptions="Center"/>
                     <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
-                        <Entry x:Name="emailEntry" Placeholder="Añadir nuevo correo" WidthRequest="200"/>
-                        <Button Text="+" WidthRequest="50" HeightRequest="40" />
+                        <Entry x:Name="emailEntry" Placeholder="Añadir nuevo correo" WidthRequest="200" Text="{Binding EmailSeleccionado.correo}" />
+                        <Button Text="+" WidthRequest="50" HeightRequest="40" Command="{Binding AddEmailCommand}" />
+                        <Button Text="-" WidthRequest="50" HeightRequest="40" Command="{Binding EliminarEmailCommand}" />
                     </HorizontalStackLayout>
 
-                    <CollectionView x:Name="Emails" HeightRequest="100" ItemsSource="{Binding UsuarioSeleccionado.Emails}" >
+                    <CollectionView x:Name="Emails" HeightRequest="100" ItemsSource="{Binding UsuarioSeleccionado.Emails}" SelectionMode="Single"
+                                    SelectedItem="{Binding EmailSeleccionado}">
+                        <CollectionView.EmptyView>
+                            <Grid>
+                                <VerticalStackLayout VerticalOptions="Center">
+                                    <Label Text="No hay emails." HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </CollectionView.EmptyView>
                         <CollectionView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate >
                                 <HorizontalStackLayout Spacing="10" HorizontalOptions="Fill" Margin="0">
-                                    <Label Text="Correo electrónico" VerticalOptions="Center" />
-                                    <Button Text="Editar email" WidthRequest="100" />
-                                    <Button Text="Eliminar" WidthRequest="100" />
+                                    <Label Text="{Binding correo}" VerticalOptions="Center" />
+                                    
                                 </HorizontalStackLayout>
                             </DataTemplate>
                         </CollectionView.ItemTemplate>
@@ -44,8 +52,8 @@
                     <BoxView HeightRequest="1" Color="Gray" Margin="0,10" />
 
                     <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
-                        <Button Text="Guardar" WidthRequest="100" />
-                        <Button Text="Borrar" WidthRequest="100" />
+                        <Button Text="Guardar" WidthRequest="100" Command="{Binding GuardarCommand}" />
+                        <Button Text="Borrar" WidthRequest="100" Command="{Binding EliminarCommand}" />
                     </HorizontalStackLayout>
                 </VerticalStackLayout>
             </Frame>
@@ -58,7 +66,7 @@
                     </VerticalStackLayout>-->
 
                     <CollectionView x:Name="Usuarios" SelectionMode="Single" IsVisible="True" ItemsSource="{Binding Usuarios}"
-                                    SelectedItem="{Binding UsuarioSeleccionado}">
+                                    SelectedItem="{Binding UsuarioSeleccionado}" >
                         <CollectionView.EmptyView>
                             <Grid>
                                 <VerticalStackLayout VerticalOptions="Center">

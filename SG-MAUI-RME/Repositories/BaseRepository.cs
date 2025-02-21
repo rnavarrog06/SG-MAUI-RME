@@ -190,7 +190,29 @@ namespace SG_MAUI_RME.Repositories
         public void SaveItemCascada(T item, bool isCascada = true)
         {
             //De momento solo inserta
-            connection.InsertWithChildren(item, isCascada);
+            
+
+            int result = 0;
+            try
+            {
+                if (item.Id != 0)
+                {
+                    
+                    connection.UpdateWithChildren(item);
+                   
+                }
+                else
+                {
+                    connection.InsertWithChildren(item, isCascada);
+
+                }
+            }
+            catch (Exception ex)
+            {
+                StatusMessage =
+                $"Error: {ex.Message}";
+            }
+
         }
 
     }

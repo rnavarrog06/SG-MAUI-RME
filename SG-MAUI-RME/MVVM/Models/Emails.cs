@@ -1,4 +1,5 @@
-﻿using SG_MAUI_RME.Abstractions;
+﻿using PropertyChanged;
+using SG_MAUI_RME.Abstractions;
 using SQLite;
 using SQLiteNetExtensions.Attributes;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace SG_MAUI_RME.MVVM.Models
 {
     [Table("Email")]
+    [AddINotifyPropertyChangedInterface]
     public class Emails : TableData
     {
         [ForeignKey(typeof(Usuario))]
