@@ -116,71 +116,65 @@ namespace SG_MAUI_RME.MVVM.ViewModels
 
             GuardarCommand = new Command(async () =>
             {
-                //App.UsuarioRepositorio.SaveItemCascada(UsuarioSeleccionado);
-                //Console.WriteLine(App.UsuarioRepositorio.StatusMessage);
-                //if (EmailEliminados.Count > 0)
-                //{
-                //    List<Emails> EmailBd = App.EmailRepositorio.GetItems();
-                //    foreach (var email in EmailEliminados)
-                //    {
-                //        if (EmailBd.Contains(email))
-                //        {
-                //            //App.EmailRepositorio.DeleteItem(email);
-                //        }
-
-                //    }
-                //    EmailEliminados.Clear();
-                //}
-
-                //RefreshView();
 
                 try
                 {
-                    if (UsuarioSeleccionado.Emails != null && UsuarioSeleccionado.Emails.Count > 0)
+
+                    bool respuesta = await Application.Current.MainPage.DisplayAlert(
+                        "Alerta","¿Estás seguro de que quieres guardar este usuario?",
+                        "Sí", "No");
+                    if (respuesta)
                     {
-                        foreach (var email in UsuarioSeleccionado.Emails)
+                        if (UsuarioSeleccionado.Emails != null && UsuarioSeleccionado.Emails.Count > 0)
                         {
-                            App.EmailRepositorio.SaveItem(email);
-                        }
-                    }
-
-                    App.UsuarioRepositorio.SaveItemCascada(UsuarioSeleccionado);
-                    Console.WriteLine(App.UsuarioRepositorio.StatusMessage);
-
-                    // Para guardar la imagen dentro de la base de datos
-                    if (cambiado)
-                    {
-                        // Si ha cambiado la imagen, se guarda en la base de datos y reiniciamos la variable bool
-                        UsuarioSeleccionado.Image = imageBytes;
-                        App.UsuarioRepositorio.SaveItem(UsuarioSeleccionado); 
-                        cambiado = false;
-                    }
-
-
-                    if (EmailEliminados.Count > 0)
-                    {
-                        List<Emails> EmailBd = App.EmailRepositorio.GetItems();
-
-                        foreach (var email in EmailEliminados)
-                        {
-                            try
+                            foreach (var email in UsuarioSeleccionado.Emails)
                             {
-                                if (email != null && email.Id != null)
+                                App.EmailRepositorio.SaveItem(email);
+                            }
+                        }
+
+                        App.UsuarioRepositorio.SaveItemCascada(UsuarioSeleccionado);
+                        Console.WriteLine(App.UsuarioRepositorio.StatusMessage);
+
+                        // Para guardar la imagen dentro de la base de datos
+                        if (cambiado)
+                        {
+                            // Si ha cambiado la imagen, se guarda en la base de datos y reiniciamos la variable bool
+                            UsuarioSeleccionado.Image = imageBytes;
+                            App.UsuarioRepositorio.SaveItem(UsuarioSeleccionado);
+                            cambiado = false;
+                        }
+
+
+                        if (EmailEliminados.Count > 0)
+                        {
+                            List<Emails> EmailBd = App.EmailRepositorio.GetItems();
+
+                            foreach (var email in EmailEliminados)
+                            {
+                                try
                                 {
-                                    var existingEmail = EmailBd.FirstOrDefault(e => e.Id == email.Id);
-                                    if (existingEmail != null)
+                                    if (email != null && email.Id != null)
                                     {
-                                        App.EmailRepositorio.DeleteItem(email);
+                                        var existingEmail = EmailBd.FirstOrDefault(e => e.Id == email.Id);
+                                        if (existingEmail != null)
+                                        {
+                                            App.EmailRepositorio.DeleteItem(email);
+                                        }
                                     }
                                 }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine($"Error al eliminar email con ID {email.Id}: {ex.Message}");
+                                }
                             }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine($"Error al eliminar email con ID {email.Id}: {ex.Message}");
-                            }
-                        }
 
-                        EmailEliminados.Clear();
+                            EmailEliminados.Clear();
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Guardado cancelado");
                     }
 
                     RefreshView();
@@ -196,9 +190,21 @@ namespace SG_MAUI_RME.MVVM.ViewModels
 
             EliminarCommand = new Command(async () =>
             {
-                App.UsuarioRepositorio.DeleteItem(UsuarioSeleccionado);
-                Console.WriteLine(App.UsuarioRepositorio.StatusMessage);
-                RefreshView();
+                bool respuesta = await Application.Current.MainPage.DisplayAlert(
+                    "Alerta", "¿Estás seguro de que quieres borrar este usuario?",
+                    "Sí", "No");
+
+                if (respuesta)
+                {
+                    App.UsuarioRepositorio.DeleteItem(UsuarioSeleccionado);
+                    Console.WriteLine(App.UsuarioRepositorio.StatusMessage);
+                    RefreshView();
+                }
+                else
+                {
+                    
+                    Console.WriteLine("Eliminación cancelada");
+                }
 
             });
 
