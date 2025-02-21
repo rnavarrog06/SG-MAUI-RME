@@ -25,9 +25,35 @@ namespace SG_MAUI_RME.MVVM.ViewModels
 
         public ICommand EliminarEmailCommand { get; set; }
 
-        public Usuario UsuarioSeleccionado { get; set; }
+        //public Usuario UsuarioSeleccionado { get; set; }
+
+        private Usuario _usuarioSeleccionado;
+        public Usuario UsuarioSeleccionado
+        {
+            get => _usuarioSeleccionado;
+            set
+            {
+                _usuarioSeleccionado = value;
+
+                if (_usuarioSeleccionado != null)
+                {
+                    // Si la imagen no es nula, la cargamos desde el byte[]
+                    if (_usuarioSeleccionado.Image != null)
+                    {
+                     
+                        ImagenSeleccionada = ImageSource.FromStream(() => new MemoryStream(_usuarioSeleccionado.Image));
+                    }
+                    else
+                    {
+                        ImagenSeleccionada = ImageSource.FromFile("dotnet_bot.png"); // Imagen por defecto
+                    }
+                }
+            }
+        }
 
         public ImageSource ImagenSeleccionada { get; set; }
+
+        public ImageSource ImagenUsuario { get; set; }
 
         public List<Emails> EmailEliminados = new List<Emails>();
 
@@ -36,6 +62,8 @@ namespace SG_MAUI_RME.MVVM.ViewModels
         public GestionUsuariosViewModel()
         {
             ImagenSeleccionada = "dotnet_bot.png"; // Imagen por defecto
+            var cambiado = false;
+            byte[] imageBytes = new byte[0];
             RefreshView();
             EmailSeleccionado = new Emails();
 
@@ -51,16 +79,30 @@ namespace SG_MAUI_RME.MVVM.ViewModels
 
                     if (file != null)
                     {
-                        string filePath = file.FullPath; 
+                        
+                        using (var stream = await file.OpenReadAsync())
+                        {
+                            using (var memoryStream = new MemoryStream())
+                            {
+                                await stream.CopyToAsync(memoryStream);
+                                imageBytes = memoryStream.ToArray();
+                            }
+                        }
 
                         if (UsuarioSeleccionado != null)
                         {
-                            UsuarioSeleccionado.Image = filePath; 
-                            App.UsuarioRepositorio.SaveItem(UsuarioSeleccionado); 
+                            ImagenSeleccionada = ImageSource.FromStream(() => new MemoryStream(imageBytes));
+                            cambiado = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine("No hay un usuario seleccionado.");
+                            return;
                         }
 
-                        // Actualizamos la imagen
-                        ImagenSeleccionada = ImageSource.FromFile(filePath);
+                        
+                        
+
                     }
                 }
                 catch (Exception ex)
@@ -102,9 +144,17 @@ namespace SG_MAUI_RME.MVVM.ViewModels
                         }
                     }
 
-                    // 🔹 Guarda el usuario con los emails
                     App.UsuarioRepositorio.SaveItemCascada(UsuarioSeleccionado);
                     Console.WriteLine(App.UsuarioRepositorio.StatusMessage);
+
+                    // Para guardar la imagen dentro de la base de datos
+                    if (cambiado)
+                    {
+                        // Si ha cambiado la imagen, se guarda en la base de datos y reiniciamos la variable bool
+                        UsuarioSeleccionado.Image = imageBytes;
+                        App.UsuarioRepositorio.SaveItem(UsuarioSeleccionado); 
+                        cambiado = false;
+                    }
 
 
                     if (EmailEliminados.Count > 0)
@@ -113,9 +163,20 @@ namespace SG_MAUI_RME.MVVM.ViewModels
 
                         foreach (var email in EmailEliminados)
                         {
-                            if (EmailBd.Any(e => e.Id == email.Id))  // Verifica si el email existe en la BD
+                            try
                             {
-                                App.EmailRepositorio.DeleteItem(email);
+                                if (email != null && email.Id != null)
+                                {
+                                    var existingEmail = EmailBd.FirstOrDefault(e => e.Id == email.Id);
+                                    if (existingEmail != null)
+                                    {
+                                        App.EmailRepositorio.DeleteItem(email);
+                                    }
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine($"Error al eliminar email con ID {email.Id}: {ex.Message}");
                             }
                         }
 
@@ -128,6 +189,8 @@ namespace SG_MAUI_RME.MVVM.ViewModels
                 {
                     Console.WriteLine($"Error al guardar: {ex.Message}");
                 }
+
+                RefreshView();
 
             });
 
@@ -181,9 +244,26 @@ namespace SG_MAUI_RME.MVVM.ViewModels
 
         private void RefreshView()
         {
-            Usuarios  = new ObservableCollection<Usuario>(App.UsuarioRepositorio.GetItemsCascada());
+            Usuarios = new ObservableCollection<Usuario>(App.UsuarioRepositorio.GetItemsCascada());
             UsuarioSeleccionado = new Usuario();
-            
+
+            if (UsuarioSeleccionado != null && UsuarioSeleccionado.Image != null)
+            {
+                // Convertir el byte[] a ImageSource usando un MemoryStream
+                using (var stream = new MemoryStream(UsuarioSeleccionado.Image))
+                {
+                    ImagenSeleccionada = ImageSource.FromStream(() => stream);  // Asignar la imagen a ImagenSeleccionada
+                }
+            }
+            else
+            {
+                // Si no hay imagen, asignamos una imagen por defecto
+                ImagenSeleccionada = ImageSource.FromFile("dotnet_bot.png");
+            }
+
+
+
+
         }
 
     }

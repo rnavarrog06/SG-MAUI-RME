@@ -80,7 +80,7 @@
                             <DataTemplate>
                                 <Frame Padding="5" Margin="5" CornerRadius="10" BorderColor="Gray">
                                     <HorizontalStackLayout>
-                                        <Image Source="dotnet_bot.png" WidthRequest="50" HeightRequest="50"/>
+                                        <Image Source="{Binding ImagenUsuario}" WidthRequest="50" HeightRequest="50"/>
                                         <VerticalStackLayout>
                                             <Label Text="{Binding Name}" FontAttributes="Bold" />
                                             <Label Text="{Binding Passwd}" FontSize="Small" />
