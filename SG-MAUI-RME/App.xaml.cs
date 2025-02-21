@@ -11,6 +11,7 @@ namespace SG_MAUI_RME
 
         public static BaseRepository<Emails> EmailRepositorio { get; private set; }
 
+
         public App(BaseRepository<Usuario> objUsuarioRepo, BaseRepository<Emails> objEmailRepo)
         {
             InitializeComponent();
@@ -18,6 +19,7 @@ namespace SG_MAUI_RME
 
             UsuarioRepositorio = objUsuarioRepo;
             EmailRepositorio = objEmailRepo;
+           
 
 
             MainPage = new NavigationPage(new LoginView());

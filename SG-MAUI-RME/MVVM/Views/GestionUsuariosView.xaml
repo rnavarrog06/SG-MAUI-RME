@@ -9,9 +9,9 @@
             <Frame Padding="10" Margin="10">
                 <VerticalStackLayout>
                     <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
-                        <Image x:Name="ImagenUsuario" Source="dotnet_bot.png" HeightRequest="100" WidthRequest="100" />
+                        <Image x:Name="ImagenUsuario" Source="{Binding ImagenSeleccionada}" HeightRequest="100" WidthRequest="100" />
                         <VerticalStackLayout VerticalOptions="Center">
-                            <Button Text="Cambiar Imagen" WidthRequest="150"/>
+                            <Button Text="Cambiar Imagen" WidthRequest="150" Command="{Binding CambiarImagenCommand}"/>
                         </VerticalStackLayout>
                     </HorizontalStackLayout>
 
@@ -80,7 +80,7 @@
                             <DataTemplate>
                                 <Frame Padding="5" Margin="5" CornerRadius="10" BorderColor="Gray">
                                     <HorizontalStackLayout>
-                                        <Image Source="dotnet_bot.png" WidthRequest="50" HeightRequest="50"/>
+                                        <Image Source="{Binding ImagenUsuario}" WidthRequest="50" HeightRequest="50"/>
                                         <VerticalStackLayout>
                                             <Label Text="{Binding Name}" FontAttributes="Bold" />
                                             <Label Text="{Binding Passwd}" FontSize="Small" />
