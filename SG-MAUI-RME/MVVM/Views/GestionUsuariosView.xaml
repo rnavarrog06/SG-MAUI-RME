@@ -1,0 +1,101 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SG_MAUI_RME.MVVM.Views.GestionUsuariosView"
+             Title="GestionUsuariosView"
+             BackgroundColor="#121212"
+             NavigationPage.HasNavigationBar="False">
+
+    <ScrollView>
+        <VerticalStackLayout>
+            <Frame Padding="10" Margin="10" BackgroundColor="#121212">
+                <VerticalStackLayout>
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="10">
+                        <Image x:Name="ImagenUsuario" Source="{Binding ImagenSeleccionada}" HeightRequest="100" WidthRequest="100" />
+                        <VerticalStackLayout VerticalOptions="Center">
+                            <Button BackgroundColor="#FFC1E3" Text="Cambiar Imagen" WidthRequest="150" Command="{Binding CambiarImagenCommand}"/>
+                        </VerticalStackLayout>
+                    </HorizontalStackLayout>
+
+                    <BoxView HeightRequest="1" Color="Gray" Margin="0,10" />
+
+                    <Label Text="Datos login:" FontAttributes="Bold" Margin="0,5" HorizontalOptions="Center"/>
+                    <Entry x:Name="LoginEntry" Placeholder="Login" Text="{Binding UsuarioSeleccionado.Name}" />
+                    <Entry x:Name="PasswordEntry"  Placeholder="Contraseña" IsPassword="True" Text="{Binding UsuarioSeleccionado.Passwd}"/>
+
+                    <BoxView HeightRequest="1" Color="Gray" Margin="0,10" />
+
+                    <Label Text="Emails del Usuario:" FontAttributes="Bold" Margin="0,5" HorizontalOptions="Center"/>
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="5">
+                        <Entry x:Name="emailEntry" Placeholder="Añadir nuevo correo" WidthRequest="200" Text="{Binding EmailSeleccionado.correo}" />
+                        <Button BackgroundColor="#FFC1E3" Text="+" WidthRequest="50" HeightRequest="40" Command="{Binding AddEmailCommand}" />
+                        <Button BackgroundColor="#FFC1E3" Text="-" WidthRequest="50" HeightRequest="40" Command="{Binding EliminarEmailCommand}" />
+                    </HorizontalStackLayout>
+
+                    <CollectionView x:Name="Emails" HeightRequest="100" ItemsSource="{Binding UsuarioSeleccionado.Emails}" SelectionMode="Single"
+                                    SelectedItem="{Binding EmailSeleccionado}">
+                        <CollectionView.EmptyView>
+                            <Grid>
+                                <VerticalStackLayout VerticalOptions="Center">
+                                    <Label Text="No hay emails." HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </CollectionView.EmptyView>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate >
+                                <HorizontalStackLayout Spacing="10" HorizontalOptions="Fill" Margin="0">
+                                    <Label Text="{Binding correo}" VerticalOptions="Center" />
+                                    
+                                </HorizontalStackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+
+                    <BoxView HeightRequest="1" Color="Gray" Margin="0,10" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+                        <Button BackgroundColor="#FFC1E3" Text="Guardar" WidthRequest="100" Command="{Binding GuardarCommand}" />
+                        <Button BackgroundColor="#FFC1E3" Text="Borrar" WidthRequest="100" Command="{Binding EliminarCommand}" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Frame>
+
+            <Frame Padding="10" Margin="10">
+                <Grid>
+                    <!--<VerticalStackLayout x:Name="EmptyStateView" IsVisible="False" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image Source="dotnet_bot.png" HeightRequest="150" />
+                        <Label Text="No hay usuarios." HorizontalOptions="Center" />
+                    </VerticalStackLayout>-->
+
+                    <CollectionView x:Name="Usuarios" SelectionMode="Single" IsVisible="True" ItemsSource="{Binding Usuarios}"
+                                    SelectedItem="{Binding UsuarioSeleccionado}" >
+                        <CollectionView.EmptyView>
+                            <Grid>
+                                <VerticalStackLayout VerticalOptions="Center">
+                                    <Image Source="triste.png" HeightRequest="150" />
+                                    <Label Text="No hay usuarios." HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Grid>
+                        </CollectionView.EmptyView>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="5" Margin="5" CornerRadius="10" BorderColor="Gray">
+                                    <HorizontalStackLayout>
+                                        <Image Source="{Binding ImagenUsuario}" WidthRequest="50" HeightRequest="50"/>
+                                        <VerticalStackLayout>
+                                            <Label Text="{Binding Name}" FontAttributes="Bold" />
+                                            <Label Text="{Binding Passwd}" FontSize="Small" />
+                                        </VerticalStackLayout>
+                                    </HorizontalStackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+            </Frame>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
+
+
+

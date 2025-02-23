@@ -1,0 +1,61 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="SG_MAUI_RME.MVVM.Views.PaginaPrincipal"
+             NavigationPage.HasNavigationBar="False"
+             BackgroundColor="#121212"
+             Title="PaginaPrincipal">
+
+    <Grid Padding="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Título -->
+        <Label Text="Menú Principal" 
+               FontSize="64"
+               FontAttributes="Bold"
+               TextColor="#FFC1E3"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"
+               Margin="0,200,0,0"
+               Grid.Row="0"/>
+
+        <!-- Botones Centrados -->
+        <HorizontalStackLayout Grid.Row="1"
+                               HorizontalOptions="Center"
+                               VerticalOptions="CenterAndExpand"
+                               Margin="0,-200,0,0"
+                               Spacing="40">
+
+            <!-- Botón de Gestión de Usuarios -->
+            <Frame CornerRadius="15" Padding="10" HasShadow="True" 
+                   BackgroundColor="#1E1E1E">
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <ImageButton Source="gestion_usuarios.png"
+                                 WidthRequest="100"
+                                 HeightRequest="100"
+                                 Command="{Binding GestionUsuariosCommand}"/>
+                    <Label Text="Usuarios" FontSize="20" 
+                           TextColor="#FFC1E3" 
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Botón de Salir -->
+            <Frame CornerRadius="15" Padding="10" HasShadow="True" 
+                   BackgroundColor="#1E1E1E">
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <ImageButton Source="salir.png"
+                                 WidthRequest="100"
+                                 HeightRequest="100"
+                                 Command="{Binding SalirCommand}"/>
+                    <Label Text="Salir" FontSize="20" 
+                           TextColor="#FFC1E3" 
+                           HorizontalOptions="Center"/>
+                </VerticalStackLayout>
+            </Frame>
+
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>
