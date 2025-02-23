@@ -15,6 +15,7 @@ namespace SG_MAUI_RME
         public App(BaseRepository<Usuario> objUsuarioRepo, BaseRepository<Emails> objEmailRepo)
         {
             InitializeComponent();
+            Application.Current.UserAppTheme = AppTheme.Dark;
 
 
             UsuarioRepositorio = objUsuarioRepo;
